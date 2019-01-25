@@ -3,7 +3,7 @@
 Module that provides functions for manipulating objects.
 
 
-[![Build Status](https://travis-ci.com/BadOPCode/NoDash.svg?branch=master)](https://travis-ci.com/BadOPCode/NoDash)
+[![Build Status](https://travis-ci.com/BadOPCode/NoDash.svg?branch=master)](https://travis-ci.com/BadOPCode/NoDash) [![Greenkeeper badge](https://badges.greenkeeper.io/BadOPCode/NoDash.svg)](https://greenkeeper.io/)
 
 
 ## Description
