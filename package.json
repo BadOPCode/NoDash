@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "node scripts/test",
+    "tests-with-coverage": "nyc --reporter=lcov --reporter=html alsatian \"./src/**/*.test.ts\" && nyc report",
     "clean": "node scripts/clean",
     "build": "node scripts/build",
     "postinstall": "npm run build"
@@ -13,9 +14,27 @@
   "license": "MIT",
   "dependencies": {
     "alsatian": "^2.3.0",
+    "nyc": "^13.1.0",
     "shelljs": "^0.8.3",
     "tap-bark": "^1.0.0",
     "ts-node": "^8.0.1",
     "typescript": "^3.2.4"
-  }
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  }  
 }
