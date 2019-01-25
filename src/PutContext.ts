@@ -5,6 +5,8 @@
  */
 "use strict";
 
+import * as utils from "./ContextUtils";
+
 /**
  * This function will follow the context path of a object using the dot
  * delimited string until it gets to the path and than insert the data 
@@ -16,36 +18,24 @@
  * @return value at the location of the dot delimited string. Returns false if specified context is bad.
  */
 export const PutContext = (searchObject: any, context: string, data: any): any => {
-    let propertyName: string = context;
-    const delimiterPosition = context.indexOf(".");
+    const contextInfo: {propertyName:string, nextContext: string} = utils.getNextContext(context);
     let tracedObject = searchObject;
 
-    if (delimiterPosition > -1) {
-        // context still has a delimiter
-        // fetch the next property name out of context string
-        propertyName = context.slice(0, delimiterPosition);
-        // remove this property name from context
-        context = context.slice(delimiterPosition + 1);
-    } else {
-        // we are at the end of the context map so scrub the next context
-        context = "";
+    if (!searchObject.hasOwnProperty(contextInfo.propertyName)) {
+        searchObject[contextInfo.propertyName] = {};
     }
 
-    if (!searchObject.hasOwnProperty(propertyName)) {
-        searchObject[propertyName] = {};
-    }
-
-    if (context !== "") { 
+    if (contextInfo.nextContext !== "") { 
         // not traced to the end of the context specifier
         // continue tracing
-        tracedObject[propertyName] = PutContext(
-            searchObject[propertyName],
-            context,
+        tracedObject[contextInfo.propertyName] = PutContext(
+            searchObject[contextInfo.propertyName],
+            contextInfo.nextContext,
             data
         );
     } else {
         // we made it to the end
-        tracedObject[propertyName] = data;
+        tracedObject[contextInfo.propertyName] = data;
     }
 
     // we traced to the end and returning value

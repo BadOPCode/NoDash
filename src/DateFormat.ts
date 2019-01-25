@@ -5,6 +5,13 @@
  */
 "use strict";
 
+
+const ABREVIATED_MONTHS: string[] = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Dec" ];
+const FULL_MONTHS: string[] = [ "January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "November", "December" ]
+const ABREVIATED_DOW: string[] = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
+const FULL_DOW: string[] = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
+
+
 /*
  * This function is useful for finding time from the begining of the year.
  */
@@ -50,11 +57,6 @@ const ordinalSuffix = (num: number): string => {
  * @param format 
  */
 export const DateFormat = (specifiedDate: Date, format: string): string  => {
-    const ABREVIATED_MONTHS: string[] = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Dec" ];
-    const FULL_MONTHS: string[] = [ "January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "November", "December" ]
-    const ABREVIATED_DOW: string[] = [ "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" ];
-    const FULL_DOW: string[] = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" ];
-
     const StartOfYear = getStartOfYear(specifiedDate);
     const DayOfYear = Math.ceil((specifiedDate.getTime() - StartOfYear.getTime()) / 86400000); //24 hours in milliseconds 
     const WeekOfYear = Math.ceil(DayOfYear / 7);
