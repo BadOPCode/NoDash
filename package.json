@@ -1,6 +1,6 @@
 {
   "name": "ts-nodash",
-  "version": "1.0.0",
+  "version": "1.0.5",
   "description": "Provides object manipulation tools.",
   "main": "dist/index.js",
   "scripts": {
