@@ -10,6 +10,16 @@ import Merge from "./Merge";
 
 @TestFixture("Merge Function")
 export class FixtureMerge {
+    @Test("It should return original if there is no new.")
+    public testUndefinedNew() {
+        Expect(Merge("a", undefined)).toBe("a");
+    }
+
+    @Test("It should always return new value if original is undefined.")
+    testUndefinedOriginal() {
+        Expect(Merge(undefined, 42)).toBe(42);
+    }
+
     @Test("It should merge two objects together.")
     public testSimpleMerge() {
         const baseObj = {
@@ -81,5 +91,30 @@ export class FixtureMerge {
             }
         });
         Expect(mergedArray).toEqual([1,2,3,4]);
+    }
+
+    @Test("Developers should be able to make broad behavior changes")
+    public testOverrideBroadBehavior() {
+        const override = {
+            String: (originalObject:any, newObject:any) => {
+                originalObject += newObject;
+                return originalObject;
+            }
+        }
+        Expect(Merge("Easy as ", 123, override)).toBe("Easy as 123");
+
+        const mergedObjects = Merge({ 
+            a: "Answer to the universe is ", 
+            b: 23
+        }, {
+            a: 42,
+            c: 45
+        }, override)
+
+        Expect(mergedObjects).toEqual({
+            a: "Answer to the universe is 42",
+            b: 23,
+            c: 45
+        })
     }
 }

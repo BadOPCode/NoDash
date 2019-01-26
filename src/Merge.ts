@@ -12,27 +12,33 @@ export interface IMergeBehavior {
 }
 
 const handleDefinedBehavior = (originalObject:any, newObject:any, behavior: IMergeBehavior) => {
-    const originalTypeName = originalObject.constructor.name;
-    const newTypeName = newObject.constructor.name;
+    const originalTypeName = originalObject ? originalObject.constructor.name : "Undefined";
+    const newTypeName = newObject ? newObject.constructor.name : "Undefined";
 
     if (behavior[`${originalTypeName}To${newTypeName}`]) {
         return behavior[`${originalTypeName}To${newTypeName}`](originalObject, newObject);
     }
 
-    if (behavior[originalTypeName]) {
+    if (behavior[originalTypeName] !== undefined) {
         return behavior[originalTypeName](originalObject, newObject);
     }
 }
 
-const  handleDefaultBehavior = (originalObject:any, newObject:any) => {
+const  handleDefaultBehavior = (originalObject:any, newObject:any, behavior?: IMergeBehavior) => {
+    if (typeof(originalObject) === "undefined") {
+        return newObject;
+    }
+
     const originalTypeName = originalObject.constructor.name;
     const newTypeName = newObject.constructor.name;
     if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
         for (const p in newObject) {
             // Property in destination object set; update its value.
-            if (typeof(newObject[p]) !== "undefined") {
-                if (typeof(newObject[p]) === "object") {
-                    originalObject[p] = Merge(originalObject[p], newObject[p]);
+            if (typeof(newObject[p]) === "object") {
+                originalObject[p] = Merge(originalObject[p], newObject[p], behavior);
+            } else {
+                if (behavior && originalObject[p]) { // if original isn't there than lets just set it
+                    originalObject[p] = handleDefinedBehavior(originalObject[p], newObject[p], behavior);
                 } else {
                     originalObject[p] = newObject[p];
                 }
@@ -54,10 +60,6 @@ export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBeha
         return originalObject;
     }
 
-    if (typeof(originalObject) === "undefined") {
-        return newObject;
-    }
-
     if (behavior) {
         const definedBehaviorResults = handleDefinedBehavior(originalObject, newObject, behavior);
         if (definedBehaviorResults) {
@@ -65,12 +67,7 @@ export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBeha
         }
     }
 
-    const defaultBehaviorResults = handleDefaultBehavior(originalObject, newObject);
-    if (defaultBehaviorResults) {
-        return defaultBehaviorResults;
-    }
-
-    return newObject;
+    return handleDefaultBehavior(originalObject, newObject, behavior);
 };
 
 export default Merge;
