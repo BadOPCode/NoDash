@@ -36,5 +36,17 @@
     ],
     "sourceMap": true,
     "instrument": true
-  }  
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BadOPCode/NoDash.git"
+  },
+  "keywords": [
+    "object",
+    "compare",
+    "merge",
+    "context",
+    "library",
+    "typescript"
+  ]
 }
