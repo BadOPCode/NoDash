@@ -5,11 +5,41 @@
  */
 "use strict";
 
+import { defaultCipherList } from "constants";
+
 export interface IMergeBehavior {
     [key:string]:(originalObject:any, newObject:any) => any;
 }
 
-const defaultObjectBehavior = (originalObject:any, newObject:any) => {
+const handleDefinedBehavior = (originalObject:any, newObject:any, behavior: IMergeBehavior) => {
+    const originalTypeName = originalObject.constructor.name;
+    const newTypeName = newObject.constructor.name;
+
+    if (behavior[`${originalTypeName}To${newTypeName}`]) {
+        return behavior[`${originalTypeName}To${newTypeName}`](originalObject, newObject);
+    }
+
+    if (behavior[originalTypeName]) {
+        return behavior[originalTypeName](originalObject, newObject);
+    }
+}
+
+const  handleDefaultBehavior = (originalObject:any, newObject:any) => {
+    const originalTypeName = originalObject.constructor.name;
+    const newTypeName = newObject.constructor.name;
+    if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
+        for (const p in newObject) {
+            // Property in destination object set; update its value.
+            if (typeof(newObject[p]) !== "undefined") {
+                if (typeof(newObject[p]) === "object") {
+                    originalObject[p] = Merge(originalObject[p], newObject[p]);
+                } else {
+                    originalObject[p] = newObject[p];
+                }
+            }
+        }
+        return originalObject;
+    }
 }
 
 /**
@@ -28,30 +58,16 @@ export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBeha
         return newObject;
     }
 
-    const originalTypeName = originalObject.constructor.name;
-    const newTypeName = newObject.constructor.name;
     if (behavior) {
-        if (behavior[`${originalTypeName}To${newTypeName}`]) {
-            return behavior[`${originalTypeName}To${newTypeName}`](originalObject, newObject);
-        }
-
-        if (behavior[originalTypeName]) {
-            return behavior[originalTypeName](originalObject, newObject);
+        const definedBehaviorResults = handleDefinedBehavior(originalObject, newObject, behavior);
+        if (definedBehaviorResults) {
+            return definedBehaviorResults;
         }
     }
 
-    if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
-        for (const p in newObject) {
-            // Property in destination object set; update its value.
-            if (typeof(newObject[p]) !== "undefined") {
-                if (typeof(newObject[p]) === "object") {
-                    originalObject[p] = Merge(originalObject[p], newObject[p]);
-                } else {
-                    originalObject[p] = newObject[p];
-                }
-            }
-        }
-        return originalObject;
+    const defaultBehaviorResults = handleDefaultBehavior(originalObject, newObject);
+    if (defaultBehaviorResults) {
+        return defaultBehaviorResults;
     }
 
     return newObject;

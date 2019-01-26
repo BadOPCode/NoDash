@@ -9,12 +9,7 @@ export interface ICompareOptions {
     arrayOrderDoesNotMatter?: boolean;
 }
 
-/**
- * Will compare two objects of any type and checks to see if their values match recurisively.
- * @param leftObject First object to be compared to.
- * @param rightObject Second object that is compared to the first.
- */
-export const Compare = (leftObject: any, rightObject: any, options?:ICompareOptions) => {
+const checkTypesMatch = (leftObject: any, rightObject: any) => {
     const leftType = typeof(leftObject);
     const rightType = typeof(rightObject);
 
@@ -22,44 +17,64 @@ export const Compare = (leftObject: any, rightObject: any, options?:ICompareOpti
         return false;
     }
 
-    if (leftType === "object") {
-        if (leftObject.constructor === Array) {
-            let lArray = leftObject;
-            let rArray = rightObject;
+    return true;
+}
 
-            if (leftObject.length !== rightObject.length) {
-                return false;
-            }
+const matchArrays = (leftObject:Array<any>, rightObject:Array<any>, options?:ICompareOptions): boolean => {
+    let lArray = leftObject;
+    let rArray = rightObject;
 
-            if (options && options.arrayOrderDoesNotMatter) {
-                lArray = leftObject.sort();
-                rArray = rightObject.sort();    
-            }
+    if (leftObject.length !== rightObject.length) {
+        return false;
+    }
 
-            for (let i = 0; i < leftObject.length; i++) {
-                if (Compare(lArray[i], rArray[i]) === false) {
-                    return false;
-                }
-            }
+    if (options && options.arrayOrderDoesNotMatter) {
+        lArray = leftObject.sort();
+        rArray = rightObject.sort();    
+    }
+
+    for (let i = 0; i < leftObject.length; i++) {
+        if (Compare(lArray[i], rArray[i]) === false) {
+            return false;
         }
-
-        if (leftObject.constructor === Object) {
-            if (Compare(Object.keys(leftObject), Object.keys(rightObject)) === false) {
-                return false;
-            }
-            for (const p in leftObject) {
-                if (leftObject.hasOwnProperty(p)) { // don't trace ancestor prototype
-                    if (Compare(leftObject[p], rightObject[p]) === false) {
-                        return false;
-                    }
-                }
-            }
-        }
-    } else {
-        return leftObject === rightObject;
     }
 
     return true;
+}
+
+const matchObjects = (leftObject:any, rightObject:any, options?:ICompareOptions): boolean => {
+    if (Compare(Object.keys(leftObject), Object.keys(rightObject)) === false) {
+        return false;
+    }
+    for (const p in leftObject) {
+        if (leftObject.hasOwnProperty(p) && 
+            Compare(leftObject[p], rightObject[p]) === false) {
+                return false;
+        }
+    }
+
+    return true;
+}
+
+/**
+ * Will compare two objects of any type and checks to see if their values match recurisively.
+ * @param leftObject First object to be compared to.
+ * @param rightObject Second object that is compared to the first.
+ */
+export const Compare = (leftObject: any, rightObject: any, options?:ICompareOptions) => {
+    if (!checkTypesMatch(leftObject, rightObject)) {
+        return false;
+    }
+
+    if (leftObject.constructor === Array) {
+        return matchArrays(leftObject, rightObject, options);
+    }
+
+    if (leftObject.constructor === Object) {
+        return matchObjects(leftObject, rightObject, options);
+    }
+
+    return leftObject === rightObject;
 };
 
 export default Compare;

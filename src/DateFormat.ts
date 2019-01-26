@@ -51,21 +51,16 @@ const ordinalSuffix = (num: number): string => {
     }
 }
 
-/**
- * This function returns the date in the format specified.
- * @param specifiedDate 
- * @param format 
- */
-export const DateFormat = (specifiedDate: Date, format: string): string  => {
+const fetchFormatOptions = (specifiedDate: Date):{[key:string]:string} => {
     const StartOfYear = getStartOfYear(specifiedDate);
     const DayOfYear = Math.ceil((specifiedDate.getTime() - StartOfYear.getTime()) / 86400000); //24 hours in milliseconds 
     const WeekOfYear = Math.ceil(DayOfYear / 7);
 
-    // format tries to adhere to ISO 8601 mixed with IBM date/time format
-    // using CAPS as date related and lower case time related.
-    // search for largest pattern to smallest. Important to use this order as the 
-    // pattern search and replace uses this order.
-    const formatOptions: {[key:string]:string} = { 
+    return { 
+        // format tries to adhere to ISO 8601 mixed with IBM date/time format
+        // using CAPS as date related and lower case time related.
+        // search for largest pattern to smallest. Important to use this order as the 
+        // pattern search and replace uses this order.
         "YYYY": "" + specifiedDate.getFullYear(), // year four digit
         "YY": specifiedDate.getFullYear().toString().slice(2,4),
         "MMMM": FULL_MONTHS[specifiedDate.getMonth()], //full month name
@@ -94,6 +89,15 @@ export const DateFormat = (specifiedDate: Date, format: string): string  => {
         "lll": ("000" + specifiedDate.getMilliseconds()).slice(-3), // padded milliseconds
         "l": "" + specifiedDate.getMilliseconds(), // milliseconds
     }
+}
+
+/**
+ * This function returns the date in the format specified.
+ * @param specifiedDate 
+ * @param format 
+ */
+export const DateFormat = (specifiedDate: Date, format: string): string  => {
+    const formatOptions: {[key:string]:string} = fetchFormatOptions(specifiedDate);
   
     let retStr = format;
     // pareses format string and replaces it with time information.
