@@ -1,4 +1,4 @@
-# NoDash Library
+# TS-NoDash Library
 
 Module that provides functions for manipulating objects.
 
@@ -9,10 +9,29 @@ Module that provides functions for manipulating objects.
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/test_coverage)](https://codeclimate.com/github/BadOPCode/NoDash/test_coverage)
 
 
+
 ## Description
 
-This library was named as a friendly poke at LoDash.  While I do appreciate and respect Lodash, I wanted to get away from underscore's organization system that was based of native object prototypes.  Instead I'm building around clearly defined functionality and applying it to all objects that can be applied to the concept.  The other thing, and the joke behind the name, it does not have any global module that can be loaded from a browser.  For NoDash to work you must import it in your code.  If you want to use it in a web browser you need to use WebPack, Browserify or Rollup.js.
+While the name of this library is a friendly poke at LoDash, I have nothing but respect for LoDash.  The idea behind this library is to tackle the same problems LoDash and Underscore address but with the organization on functional design instead of being organized around native base classes. This library was designed to use ES6 style imports and does not provide any global module that can be directly loaded in a browser.  It's written in TypeScript but can just as easily be used in Babel projects as well.
 
+
+
+## Installation
+
+To install type...
+```
+npm i -S ts-nodash
+```
+
+In ES6, TypeScript or Babel you can include the entire module.
+```typescript
+import * as nodash from "ts-nodash";
+```
+
+In ES5 Node JS you can add this line.
+```javascript
+var nodash = require("ts-nodash");
+```
 
 
 ## Usage
@@ -32,7 +51,7 @@ The Compare function takes two parameters that can be of any object type and it 
 
 To import specifically this function use the following code:
 ```typescript
-import { Compare } from "nodash";
+import { Compare } from "ts-nodash";
 ```
 
 **Syntax**
@@ -74,7 +93,7 @@ The DateFormat function will format a date or time specified and returns the str
 
 To import specifically this function use the following code:
 ```typescript
-import { DateFormat } from "nodash";
+import { DateFormat } from "ts-nodash";
 ```
 
 **Syntax**
@@ -132,13 +151,73 @@ DateFormat(testDate, "YYYY-MM-DD hh:mm:ss") //returns "2003-01-02 16:35:46"
 
 
 
+### Decision
+This is meant as a cleaner more functional replacement for switch case in JavaScript.
+Decision function lets you make a object that contains all the options possible represented as a object key which can be either a string or a number. When you pass the object into the Decision function it returns a fuction that takes a decision parameter and a secondary parameters that will be passed into functions that might be contained within the decision object.
+
+To import specifically this function use the following code:
+```typescript
+import { Decision } from "ts-nodash";
+```
+
+
+**Syntax**
+```
+FetchContext(decisionObject)
+
+decisionObject = {
+    "option": Function(parameter) | value
+    ["default": Function(decision, parameter) | value]
+}
+```
+
+> decisionObject (required): Object that specifies the decision tree. Each option within the decisionObject can be a property of any type or a function.  The decisionObject is processed at the moment it's passed into the Decision function, so the decisionObject can be programatically made before hand.
+
+> returns: a function that can be used multiple times to return decisions based off of the originating decisionObject.  The function takes optional 2 parameters.  The first one is the value of the decision to make.  The second is parameters to pass if the option in the decisionObject is a function.  If "default" is specified as an option, any time a decision is not on the decisionObject list it will execute this option.  This option is a little different if it's a function.  The function's first parameter was the decision that brought it to "default". The second parameter is the parameter that was being passed.
+
+
+**Examples**
+```typescript
+Decision({
+    a: "hello",
+    b: "world"
+})("a") // returns "hello"
+
+const decisionFunc = Decision({
+    a: (param) => `a:${param}`,
+    b: (param) => `b:${param}`
+})
+decisionFunc("b", 42) // returns "b:42"
+decisionFunc("a", 25) // returns "a:25"
+
+Decision({
+    1: "a",
+    2: "b",
+    default: (decision, params) => `uknown option ${decision} with params "${params}"`
+})(23)  // returns "default option 23 with params \"\""
+
+Decision({
+    1: "a",
+    2: "b",
+    default: "c"
+})(23)  // returns "c"
+
+Decision({
+    1: "a",
+    2: "b",
+    default: "c"
+})() //returns "c"
+```
+
+
+
 ### FetchContext
 This will fetch a property from a object using a dot ('.') delimited string.
 This is a useful function for easily making programatic functions to return values within objects.
 
 To import specifically this function use the following code:
 ```typescript
-import { FetchContext } from "nodash";
+import { FetchContext } from "ts-nodash";
 ```
 
 **Syntax**
@@ -171,7 +250,7 @@ The Merge function takes two parameters that can be of any object type and will 
 
 To import specifically this function use the following code:
 ```typescript
-import { Merge } from "nodash";
+import { Merge } from "ts-nodash";
 ```
 
 **Syntax**
@@ -212,7 +291,7 @@ string as a specifier of where the property is.
 
 To import specifically this function use the following code:
 ```typescript
-import { PruneContext } from "nodash";
+import { PruneContext } from "ts-nodash";
 ```
 
 **Syntax**
@@ -244,7 +323,7 @@ This will place data within a object using the context specified in the string.
 
 To import specifically this function use the following code:
 ```typescript
-import { PutContext } from "nodash";
+import { PutContext } from "ts-nodash";
 ```
 
 **Syntax**
