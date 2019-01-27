@@ -5,30 +5,40 @@
  */
 "use strict";
 
+export type TDecision = string | number | undefined;
+
 export interface IDecisionTree {
     [key: string]: any
 }
+
 
 export const defaultUnknownDecision = (decision: any) => {
     console.log('Unknown "' + decision + '" command.');
 }
 
+const processOption = (decisionTree: IDecisionTree, decision: TDecision, params?: any) => {
+    return (decisionTree[`${decision}`] instanceof Function) ? 
+        decisionTree[`${decision}`](params):
+        decisionTree[`${decision}`]; 
+}
+
+const processDefaultOption = (decisionTree: IDecisionTree, decision: TDecision, params?: any) => {
+    return (decisionTree['default'] instanceof Function) ? 
+        decisionTree['default'](`${decision}`, params):
+        decisionTree['default']; 
+}
+
 const runDecision = (decisionTree: IDecisionTree, decision: any, params?: any) => {
     if (decisionTree[`${decision}`]) {
-        if (decisionTree[`${decision}`] instanceof Function) {
-            return decisionTree[`${decision}`](params);
-        } else {
-            return decisionTree[`${decision}`];
-        }
-    } else { // can't find option
-        if (decisionTree['default']) { //fall back to default if specified
-            return (decisionTree['default'] instanceof Function) ? 
-                decisionTree['default'](`${decision}`, params):
-                decisionTree['default']; 
-        }
-        // default was not specified
-        defaultUnknownDecision(`${decision}`);
+        return processOption(decisionTree, decision, params);
     }
+
+    if (decisionTree['default']) { //fall back to default if specified
+        return processDefaultOption(decisionTree, decision, params);
+    }
+
+    // default was not specified
+    defaultUnknownDecision(`${decision}`);
 }
 
 export const Decision = (decisionTree: IDecisionTree) => {

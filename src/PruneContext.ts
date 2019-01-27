@@ -17,7 +17,6 @@ import * as utils from "./ContextUtils";
  */
 export const PruneContext = (searchObject: any, context: string): any => {
     const contextInfo: {propertyName:string, nextContext: string} = utils.getNextContext(context);
-    let tracedObject = searchObject;
 
     // validate context exists in object
     if (searchObject.hasOwnProperty(contextInfo.propertyName) === false) {
@@ -38,7 +37,7 @@ export const PruneContext = (searchObject: any, context: string): any => {
     }
 
     // we traced to the end and returning value
-    return tracedObject;
+    return searchObject;
 }
 
 export default PruneContext;

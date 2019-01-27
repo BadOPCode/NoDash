@@ -51,7 +51,7 @@ const ordinalSuffix = (num: number): string => {
     }
 }
 
-const fetchFormatOptions = (specifiedDate: Date):{[key:string]:string} => {
+const fetchFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
     const StartOfYear = getStartOfYear(specifiedDate);
     const DayOfYear = Math.ceil((specifiedDate.getTime() - StartOfYear.getTime()) / 86400000); //24 hours in milliseconds 
     const WeekOfYear = Math.ceil(DayOfYear / 7);
@@ -91,19 +91,23 @@ const fetchFormatOptions = (specifiedDate: Date):{[key:string]:string} => {
     }
 }
 
+
+// const replaceFormatTokens = (retStr: string, token: string, value: string): string => {
+// }
+
 /**
  * This function returns the date in the format specified.
  * @param specifiedDate 
  * @param format 
  */
 export const DateFormat = (specifiedDate: Date, format: string): string  => {
-    const formatOptions: {[key:string]:string} = fetchFormatOptions(specifiedDate);
+    const formatTokens: {[key:string]:string} = fetchFormatTokens(specifiedDate);
   
     let retStr = format;
     // pareses format string and replaces it with time information.
-    for(var optType in formatOptions) {
-        while (format.indexOf(optType) > -1) {
-            const foundPos = format.indexOf(optType);
+    for(var token in formatTokens) {
+        while (format.indexOf(token) > -1) {
+            const foundPos = format.indexOf(token);
             if (format.charAt(foundPos-1) === "_") { //it's a literal
                 retStr = retStr.slice(0, foundPos-1) +
                     retStr.slice(foundPos);
@@ -111,16 +115,16 @@ export const DateFormat = (specifiedDate: Date, format: string): string  => {
                 format = format.slice(0, foundPos-1) + " " +
                     format.slice(foundPos + 1);
             } else {
-                const valueStr = formatOptions[optType];
+                const valueStr = formatTokens[token];
                 retStr = retStr.slice(0, foundPos) +
                         valueStr +
-                        retStr.slice(foundPos + optType.length);
+                        retStr.slice(foundPos + token.length);
 
                 // erase find and adjust format to return strings new string
                 // This prevents finding matches in already replaced.
                 format = format.slice(0, foundPos) +
                         Array(valueStr.length+1).join(" ") +
-                        format.slice(foundPos + optType.length);
+                        format.slice(foundPos + token.length);
             }
         }
     }

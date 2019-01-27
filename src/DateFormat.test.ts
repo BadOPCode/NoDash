@@ -82,5 +82,35 @@ export class FixtureDateFormat {
     public testOrdinalSuffixTh() {
         this.testDate.setDate(11);
         Expect(DateFormat(this.testDate, "DS")).toBe("11th");
+
+        this.testDate.setDate(8);
+        Expect(DateFormat(this.testDate, "DS")).toBe("8th");
+
+        this.testDate.setDate(29);
+        Expect(DateFormat(this.testDate, "DS")).toBe("29th");
+    }
+
+    @Test("It should return rd suffix when the number is 3 or 23.")
+    public testOrdinalSuffixRd() {
+        this.testDate.setDate(3);
+        Expect(DateFormat(this.testDate, "DS")).toBe("3rd");
+
+        this.testDate.setDate(23);
+        Expect(DateFormat(this.testDate, "DS")).toBe("23rd");
+    }
+
+    @Test("It should be able to format correct 12 hour times")
+    public test12HourTime() {
+        this.testDate.setHours(23);
+        Expect(DateFormat(this.testDate, "h+A")).toBe("11PM");
+
+        this.testDate.setHours(5);
+        Expect(DateFormat(this.testDate, "h+A")).toBe("5AM");
+
+        this.testDate.setHours(14);
+        Expect(DateFormat(this.testDate, "h+a")).toBe("2pm");
+
+        this.testDate.setHours(11);
+        Expect(DateFormat(this.testDate, "h+a")).toBe("11am");
     }
 }

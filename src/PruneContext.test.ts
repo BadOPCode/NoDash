@@ -67,4 +67,23 @@ export class FixturePruneContext {
 
         Expect(PruneContext(testObj, "a.b.c")).toEqual({a:{b:{d:"hello"}}, d:"world"});
     }
+
+    @Test("It should return the original object if the context is non-existant.")
+    public testContextCanNotBeFound() {
+        const testObj = {
+            a: {
+                b: {
+                    c: {
+                        x: 12,
+                        y: 34
+                    },
+                    d: "hello"
+                }
+            },
+            d: "world"
+        }
+        const cloneObj = JSON.parse(JSON.stringify(testObj));
+
+        Expect(PruneContext(testObj, "a.b.z")).toEqual(cloneObj);
+    }
 }

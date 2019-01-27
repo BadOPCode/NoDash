@@ -51,7 +51,11 @@ The Compare function takes two parameters that can be of any object type and it 
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { Compare } from "ts-nodash";
+
+//Node JS
+var Compare = require("ts-node").Compare;
 ```
 
 **Syntax**
@@ -94,8 +98,13 @@ compare([1,2,3],[3,2,1]]) //returns false because by default array order does ma
 The DateFormat function will format a date or time specified and returns the string.
 
 To import specifically this function use the following code:
+
 ```typescript
+//ES6
 import { DateFormat } from "ts-nodash";
+
+//Node JS
+var DateFormat = require("ts-node").DateFormat;
 ```
 
 **Syntax**
@@ -137,7 +146,7 @@ Format Symbol | Description
 "l" | Non-padded millisecond. (0-999)
 "_" | To specify that the next character is to be displayed literally.
 
->returns: A string of the date specified in the format given.
+> returns: A string of the date specified in the format given.
 
 **Examples**
 ```typescript
@@ -159,7 +168,11 @@ Decision function lets you make a object that contains all the options possible 
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { Decision } from "ts-nodash";
+
+//Node JS
+var Decision = require("ts-node").Decision;
 ```
 
 
@@ -219,7 +232,11 @@ This is a useful function for easily making programatic functions to return valu
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { FetchContext } from "ts-nodash";
+
+//Node JS
+var FetchContext = require("ts-node").FetchContext;
 ```
 
 **Syntax**
@@ -252,7 +269,11 @@ The Merge function takes two parameters that can be of any object type and will 
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { Merge } from "ts-nodash";
+
+//Node JS
+var Merge = require("ts-node").Merge;
 ```
 
 **Syntax**
@@ -293,7 +314,11 @@ string as a specifier of where the property is.
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { PruneContext } from "ts-nodash";
+
+//Node JS
+var PruneContext = require("ts-node").PruneContext;
 ```
 
 **Syntax**
@@ -325,7 +350,11 @@ This will place data within a object using the context specified in the string.
 
 To import specifically this function use the following code:
 ```typescript
+//ES6
 import { PutContext } from "ts-nodash";
+
+//Node JS
+var PutContext = require("ts-node").PutContext;
 ```
 
 **Syntax**
