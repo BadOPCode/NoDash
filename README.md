@@ -62,9 +62,11 @@ Compare(object1, object2[, options])
 
 > object2 (required): Any type of javascript object you want to be compared with object1
 
-> options (optional): a object that contains overrides to default behavior of comparing
+> options (optional): a object that contains overrides to default behavior of comparing.
+
     - arrayOrderDoesNotMatter(optional) true | false - If set to true the array will not care the order of the data just that all the elements and values match. If set to false (default) the order is taken into consideration on matching
-returns: boolean true or false.
+
+> returns: boolean true or false.
 
 **Examples**
 ```typescript
