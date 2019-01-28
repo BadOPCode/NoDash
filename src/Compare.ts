@@ -18,9 +18,9 @@ const checkTypesMatch = (leftObject: any, rightObject: any) => {
     }
 
     return true;
-}
+};
 
-const matchArrays = (leftObject:Array<any>, rightObject:Array<any>, options?:ICompareOptions): boolean => {
+const matchArrays = (leftObject: any[], rightObject: any[], options?: ICompareOptions): boolean => {
     let lArray = leftObject;
     let rArray = rightObject;
 
@@ -30,7 +30,7 @@ const matchArrays = (leftObject:Array<any>, rightObject:Array<any>, options?:ICo
 
     if (options && options.arrayOrderDoesNotMatter) {
         lArray = leftObject.sort();
-        rArray = rightObject.sort();    
+        rArray = rightObject.sort();
     }
 
     for (let i = 0; i < leftObject.length; i++) {
@@ -40,9 +40,9 @@ const matchArrays = (leftObject:Array<any>, rightObject:Array<any>, options?:ICo
     }
 
     return true;
-}
+};
 
-const matchObjects = (leftObject:any, rightObject:any, options?:ICompareOptions): boolean => {
+const matchObjects = (leftObject: any, rightObject: any, options?: ICompareOptions): boolean => {
     if (Compare(Object.keys(leftObject), Object.keys(rightObject)) === false) {
         return false;
     }
@@ -53,14 +53,14 @@ const matchObjects = (leftObject:any, rightObject:any, options?:ICompareOptions)
     }
 
     return true;
-}
+};
 
 /**
  * Will compare two objects of any type and checks to see if their values match recurisively.
  * @param leftObject First object to be compared to.
  * @param rightObject Second object that is compared to the first.
  */
-export const Compare = (leftObject: any, rightObject: any, options?:ICompareOptions) => {
+export const Compare = (leftObject: any, rightObject: any, options?: ICompareOptions) => {
     if (!checkTypesMatch(leftObject, rightObject)) {
         return false;
     }

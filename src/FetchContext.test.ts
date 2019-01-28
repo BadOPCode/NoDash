@@ -12,26 +12,26 @@ import FetchContext from "./FetchContext";
 export class FixtureFetchContext {
     @Test("It should return a number from a flat object.")
     public testNumberValue() {
-        Expect(FetchContext({a:42}, "a")).toBe(42);
+        Expect(FetchContext({a: 42}, "a")).toBe(42);
     }
 
     @Test("It should return an object from a flat object.")
     public testObjectValue() {
         const testObj = {
             a: {
-                b: 2
-            }
-        }
-        Expect(FetchContext(testObj, "a")).toEqual({b:2});
+                b: 2,
+            },
+        };
+        Expect(FetchContext(testObj, "a")).toEqual({b: 2});
     }
 
     @Test("It should return undefined if it can't find the context.")
     public testBadContext() {
         const testObj = {
             a: {
-                b: 2
-            }
-        }
+                b: 2,
+            },
+        };
         Expect(FetchContext(testObj, "a.z")).toBe(undefined);
     }
 
@@ -40,10 +40,10 @@ export class FixtureFetchContext {
         const testObj = {
             a: {
                 b: {
-                    c: "hello world"
-                }
-            }
-        }
+                    c: "hello world",
+                },
+            },
+        };
 
         Expect(FetchContext(testObj, "a.b.c")).toBe("hello world");
     }
@@ -54,15 +54,15 @@ export class FixtureFetchContext {
             a: {
                 b: {
                     c: {
+                        a: 42,
                         q: "What is the answer to life, the universe and everything?",
-                        a: 42
-                    }
-                }
-            }
-        }
+                    },
+                },
+            },
+        };
         Expect(FetchContext(testObj, "a.b.c")).toEqual({
+            a: 42,
             q: "What is the answer to life, the universe and everything?",
-            a: 42
-        });   
+        });
     }
 }

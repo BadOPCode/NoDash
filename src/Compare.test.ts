@@ -10,7 +10,7 @@ import Compare from "./Compare";
 
 @TestFixture("Compare Function")
 export class FixtureCompare {
-    
+
     @Test("Fail if types are different.")
     public testFailDifferent() {
         const result = Compare("123", 123);
@@ -61,7 +61,7 @@ export class FixtureCompare {
             3,
             "a",
             "b",
-            "c"
+            "c",
         ];
         const rightArray = [
             1,
@@ -69,7 +69,7 @@ export class FixtureCompare {
             3,
             "a",
             "b",
-            "c"
+            "c",
         ];
         const results = Compare(leftArray, rightArray);
         Expect(results).toBe(true);
@@ -80,13 +80,13 @@ export class FixtureCompare {
         const leftArray = [
             1,
             2,
-            3
+            3,
         ];
         const rightArray = [
-            1, 
-            2, 
-            3, 
-            4
+            1,
+            2,
+            3,
+            4,
         ];
         const results = Compare(leftArray, rightArray);
         Expect(results).toBe(false);
@@ -97,12 +97,12 @@ export class FixtureCompare {
         const leftArray = [
             1,
             2,
-            3
+            3,
         ];
         const rightArray = [
-            3, 
-            2, 
-            1
+            3,
+            2,
+            1,
         ];
         const results = Compare(leftArray, rightArray);
         Expect(results).toBe(false);
@@ -113,14 +113,14 @@ export class FixtureCompare {
         const leftArray = [
             1,
             2,
-            3
+            3,
         ];
         const rightArray = [
-            3, 
-            2, 
-            1
+            3,
+            2,
+            1,
         ];
-        const results = Compare(leftArray, rightArray, {arrayOrderDoesNotMatter:true});
+        const results = Compare(leftArray, rightArray, {arrayOrderDoesNotMatter: true});
         Expect(results).toBe(true);
     }
 
@@ -129,12 +129,12 @@ export class FixtureCompare {
         const leftObj = {
             a: 1,
             b: 2,
-            c: "hello"
+            c: "hello",
         };
         const rightObj = {
             a: 1,
             b: 2,
-            c: "hello"
+            c: "hello",
         };
         const results = Compare(leftObj, rightObj);
         Expect(results).toBe(true);
@@ -145,13 +145,13 @@ export class FixtureCompare {
         const leftObj = {
             a: 1,
             b: 2,
-            c: "hello"
+            c: "hello",
         };
         const rightObj = {
             a: 1,
             b: 2,
             c: "hello",
-            d: "world"            
+            d: "world",
         };
         const results = Compare(leftObj, rightObj);
         Expect(results).toBe(false);
@@ -162,7 +162,7 @@ export class FixtureCompare {
         const leftObj = {
             a: 3,
             b: 2,
-            c: "hello"
+            c: "hello",
         };
         const rightObj = {
             a: 1,
@@ -177,19 +177,19 @@ export class FixtureCompare {
     public testPassComplexMatches() {
         const leftObj = {
             a: [
-                1, 
+                1,
                 2,
-                "hello"
+                "hello",
             ],
-            c: "world"
+            c: "world",
         };
         const rightObj = {
             a: [
-                1, 
+                1,
                 2,
-                "hello"
+                "hello",
             ],
-            c: "world"
+            c: "world",
         };
         let results = Compare(leftObj, rightObj);
         Expect(results).toBe(true);
@@ -198,17 +198,17 @@ export class FixtureCompare {
             {
                 a: 1,
                 b: 2,
-                c: "hello"
+                c: "hello",
             },
-            "world"
+            "world",
         ];
         const rightArray = [
             {
                 a: 1,
                 b: 2,
-                c: "hello"
+                c: "hello",
             },
-            "world"
+            "world",
         ];
         results = Compare(leftArray, rightArray);
         Expect(results).toBe(true);
@@ -218,19 +218,19 @@ export class FixtureCompare {
     public testFailComplexDiff() {
         const leftObj = {
             a: [
-                1, 
+                1,
                 2,
-                "blah"
+                "blah",
             ],
-            c: "world"
+            c: "world",
         };
         const rightObj = {
             a: [
-                1, 
+                1,
                 2,
-                "hello"
+                "hello",
             ],
-            c: "world"
+            c: "world",
         };
         let results = Compare(leftObj, rightObj);
         Expect(results).toBe(false);
@@ -239,17 +239,17 @@ export class FixtureCompare {
             {
                 a: 1,
                 b: 2,
-                c: "hello"
+                c: "hello",
             },
-            "world"
+            "world",
         ];
         const rightArray = [
             {
                 a: 1,
                 b: 2,
-                c: "blah"
+                c: "blah",
             },
-            "world"
+            "world",
         ];
         results = Compare(leftArray, rightArray);
         Expect(results).toBe(false);

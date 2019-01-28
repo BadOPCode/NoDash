@@ -6,10 +6,10 @@
 "use strict";
 
 export interface IMergeBehavior {
-    [key:string]:(originalObject:any, newObject:any) => any;
+    [key: string]: (originalObject: any, newObject: any) => any;
 }
 
-const handleDefinedBehavior = (originalObject:any, newObject:any, behavior: IMergeBehavior) => {
+const handleDefinedBehavior = (originalObject: any, newObject: any, behavior: IMergeBehavior) => {
     const originalTypeName = originalObject ? originalObject.constructor.name : "Undefined";
     const newTypeName = newObject ? newObject.constructor.name : "Undefined";
 
@@ -20,7 +20,7 @@ const handleDefinedBehavior = (originalObject:any, newObject:any, behavior: IMer
     if (behavior[originalTypeName] !== undefined) {
         return behavior[originalTypeName](originalObject, newObject);
     }
-}
+};
 
 const processBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
     // Property in destination object set; update its value.
@@ -34,10 +34,10 @@ const processBehavior = (originalObject: any, newObject: any, behavior?: IMergeB
         }
     }
 
-    return originalObject
-}
+    return originalObject;
+};
 
-const  handleDefaultBehavior = (originalObject:any, newObject:any, behavior?: IMergeBehavior) => {
+const  handleDefaultBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
     if (typeof(originalObject) === "undefined") {
         return newObject;
     }
@@ -45,12 +45,14 @@ const  handleDefaultBehavior = (originalObject:any, newObject:any, behavior?: IM
     const originalTypeName = originalObject.constructor.name;
     const newTypeName = newObject.constructor.name;
     if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
+        // tslint:disable:forin
         for (const p in newObject) {
             originalObject[p] = processBehavior(originalObject[p], newObject[p], behavior);
         }
+        // tslint:enable:forin
         return originalObject;
     }
-}
+};
 
 /**
  * Recursively merge two objects together.

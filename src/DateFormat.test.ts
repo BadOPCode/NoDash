@@ -10,7 +10,7 @@ import DateFormat from "./DateFormat";
 
 @TestFixture("DateFormat Function")
 export class FixtureDateFormat {
-    testDate = new Date("Jan 2 2003 16:35:46:57");
+    public testDate = new Date("Jan 2 2003 16:35:46:57");
 
     @Test("It should return a formal date.")
     public testFormalDate() {
@@ -34,7 +34,7 @@ export class FixtureDateFormat {
 
     @Test("It should return traditional German format.")
     public testGermanDate() {
-        Expect(DateFormat(this.testDate, "DD.MM.YYYY")).toBe("02.01.2003")
+        Expect(DateFormat(this.testDate, "DD.MM.YYYY")).toBe("02.01.2003");
     }
 
     @Test("It should return a quarterly format.")

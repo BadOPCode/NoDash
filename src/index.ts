@@ -13,7 +13,7 @@ import { Merge } from "./Merge";
 import { PruneContext } from "./PruneContext";
 import { PutContext } from "./PutContext";
 
-export { 
+export {
     Compare,
     DateFormat,
     Decision,
@@ -31,4 +31,4 @@ export default {
     Merge,
     PruneContext,
     PutContext,
-}
+};

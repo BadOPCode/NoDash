@@ -5,19 +5,18 @@
  */
 "use strict";
 
-
 /**
  * This looks at the current context dot delimited string and returns a split between
  * what is the current property name and what is the next part of the context.
  * @param currentContext string that is the currnet context
  * @returns { propertyName, nextContext }
  */
-export const getNextContext = (currentContext: string): { propertyName:string, nextContext: string } => {
+export const getNextContext = (currentContext: string): { propertyName: string, nextContext: string } => {
     if (!currentContext) {
         return {
+            nextContext: "",
             propertyName: "",
-            nextContext: ""
-        }
+        };
     }
     const delimiterPosition = currentContext.indexOf(".");
     let propertyName = currentContext;
@@ -32,7 +31,7 @@ export const getNextContext = (currentContext: string): { propertyName:string, n
     }
 
     return {
+        nextContext,
         propertyName,
-        nextContext
-    }
-}
+    };
+};

@@ -5,9 +5,8 @@
  */
 "use strict";
 
-import { Expect, Test, TestFixture, SpyOn } from "alsatian";
+import { Expect, SpyOn, Test, TestFixture } from "alsatian";
 import Decision, * as spyMod from "./Decision";
-
 
 @TestFixture("Decision Function")
 export class FixtureDecision {
@@ -16,9 +15,9 @@ export class FixtureDecision {
         const x = Decision({
             a: 1,
             b: 2,
-            c: 3
+            c: 3,
         });
-        Expect(x('b')).toBe(2);
+        Expect(x("b")).toBe(2);
     }
 
     @Test("Simple decision tree returns string.")
@@ -26,17 +25,17 @@ export class FixtureDecision {
         const x = Decision({
             1: "a",
             2: "b",
-            3: "c"
+            3: "c",
         });
-        Expect(x(2)).toBe('b');
+        Expect(x(2)).toBe("b");
     }
 
     @Test("Should be able to pass in and execute functions")
     public testSimpleDecisionFunc() {
         const x = Decision({
-            "less": (value: number) => value-1,
-            "more": (value: number) => value+1,
-            "same": (value: number) => value
+            less: (value: number) => value - 1,
+            more: (value: number) => value + 1,
+            same: (value: number) => value,
         });
         const value = 42;
         Expect(x("more", value)).toBe(43);
@@ -50,7 +49,7 @@ export class FixtureDecision {
             a: 1,
             b: 2,
             c: 3,
-            default: 42
+            default: 42,
         });
         Expect(x()).toBe(42);
     }
@@ -61,9 +60,9 @@ export class FixtureDecision {
             a: 1,
             b: 2,
             c: 3,
-            default: 42
+            default: 42,
         });
-        Expect(x('z')).toBe(42);
+        Expect(x("z")).toBe(42);
     }
 
     @Test("Should be able to specify a function for default returns")
@@ -72,9 +71,9 @@ export class FixtureDecision {
             a: 1,
             b: 2,
             c: 3,
-            default: (decision: string) => `${decision}:42`
+            default: (decision: string) => `${decision}:42`,
         });
-        Expect(x('z')).toBe("z:42");
+        Expect(x("z")).toBe("z:42");
     }
 
     @Test("Should return error and quit if unknown and default are not specified")
@@ -85,7 +84,7 @@ export class FixtureDecision {
             c: 3,
         });
         SpyOn(spyMod, "defaultUnknownDecision");
-        Expect(x('z')).toBe(undefined);
+        Expect(x("z")).toBe(undefined);
         Expect(spyMod.defaultUnknownDecision).toHaveBeenCalled();
     }
 
@@ -94,8 +93,8 @@ export class FixtureDecision {
         const x = Decision({
             1: "hi",
             2: "hello world",
-            3: "bye"
+            3: "bye",
         });
-        Expect(x(1+1)).toBe("hello world");        
+        Expect(x(1 + 1)).toBe("hello world");
     }
 }

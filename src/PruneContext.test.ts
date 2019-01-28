@@ -3,11 +3,10 @@
  * @author Shawn Rapp
  * @license MIT
  */
-import { Expect, Test, TestFixture } from "alsatian";
-import PruneContext from "./PruneContext";
-
 "use strict";
 
+import { Expect, Test, TestFixture } from "alsatian";
+import PruneContext from "./PruneContext";
 
 @TestFixture("PruneContext")
 export class FixturePruneContext {
@@ -16,9 +15,9 @@ export class FixturePruneContext {
         const testObj = {
             a: 12,
             b: 34,
-            c: 56
-        }
-        Expect(PruneContext(testObj, "b")).toEqual({a:12, c:56});
+            c: 56,
+        };
+        Expect(PruneContext(testObj, "b")).toEqual({a: 12, c: 56});
     }
 
     @Test("It should delete a object from a root object.")
@@ -26,13 +25,13 @@ export class FixturePruneContext {
         const testObj = {
             a: {
                 b: {
-                    c: 42
-                }
+                    c: 42,
+                },
             },
-            d: "hi"
-        }
+            d: "hi",
+        };
 
-        Expect(PruneContext(testObj, "a")).toEqual({d:"hi"});
+        Expect(PruneContext(testObj, "a")).toEqual({d: "hi"});
     }
 
     @Test("It should be able to traverse a object to delete a property")
@@ -41,13 +40,13 @@ export class FixturePruneContext {
             a: {
                 b: {
                     c: 42,
-                    d: "hi"
-                }
+                    d: "hi",
+                },
             },
-            d: "hi"
-        }
+            d: "hi",
+        };
 
-        Expect(PruneContext(testObj, "a.b.c")).toEqual({a:{b:{d:"hi"}}, d:"hi"});
+        Expect(PruneContext(testObj, "a.b.c")).toEqual({a: {b: {d: "hi"}}, d: "hi"});
     }
 
     @Test("It should be able to traverse a object to delete a object")
@@ -57,15 +56,15 @@ export class FixturePruneContext {
                 b: {
                     c: {
                         x: 12,
-                        y: 34
+                        y: 34,
                     },
-                    d: "hello"
-                }
+                    d: "hello",
+                },
             },
-            d: "world"
-        }
+            d: "world",
+        };
 
-        Expect(PruneContext(testObj, "a.b.c")).toEqual({a:{b:{d:"hello"}}, d:"world"});
+        Expect(PruneContext(testObj, "a.b.c")).toEqual({a: {b: {d: "hello"}}, d: "world"});
     }
 
     @Test("It should return the original object if the context is non-existant.")
@@ -75,13 +74,13 @@ export class FixturePruneContext {
                 b: {
                     c: {
                         x: 12,
-                        y: 34
+                        y: 34,
                     },
-                    d: "hello"
-                }
+                    d: "hello",
+                },
             },
-            d: "world"
-        }
+            d: "world",
+        };
         const cloneObj = JSON.parse(JSON.stringify(testObj));
 
         Expect(PruneContext(testObj, "a.b.z")).toEqual(cloneObj);
