@@ -5,6 +5,7 @@
  */
 "use strict";
 
+import { Merge } from "./Merge";
 
 const ABREVIATED_MONTHS: string[] = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Nov", "Dec" ];
 const FULL_MONTHS: string[] = [ "January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "November", "December" ]
@@ -51,16 +52,12 @@ const ordinalSuffix = (num: number): string => {
     }
 }
 
-const fetchFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
+const fetchDateFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
     const StartOfYear = getStartOfYear(specifiedDate);
     const DayOfYear = Math.ceil((specifiedDate.getTime() - StartOfYear.getTime()) / 86400000); //24 hours in milliseconds 
     const WeekOfYear = Math.ceil(DayOfYear / 7);
 
-    return { 
-        // format tries to adhere to ISO 8601 mixed with IBM date/time format
-        // using CAPS as date related and lower case time related.
-        // search for largest pattern to smallest. Important to use this order as the 
-        // pattern search and replace uses this order.
+    return {
         "YYYY": "" + specifiedDate.getFullYear(), // year four digit
         "YY": specifiedDate.getFullYear().toString().slice(2,4),
         "MMMM": FULL_MONTHS[specifiedDate.getMonth()], //full month name
@@ -76,6 +73,15 @@ const fetchFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
         "D": "" + specifiedDate.getDate(), // day of the month
         "WW": ("00" + WeekOfYear).slice(-2),  // padded jan 1 is week 1; dec 31 is week 52
         "W": "" + WeekOfYear, // not padded
+    }
+}
+
+const fetchTimeFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
+    return { 
+        // format tries to adhere to ISO 8601 mixed with IBM date/time format
+        // using CAPS as date related and lower case time related.
+        // search for largest pattern to smallest. Important to use this order as the 
+        // pattern search and replace uses this order.
         "hh+": ("00" + convert24to12(specifiedDate.getHours())).slice(-2), //padded 12 hour  format 
         "hh": ("00" + specifiedDate.getHours()).slice(-2), //padded 24 hour  format
         "h+": "" + convert24to12(specifiedDate.getHours()), // 12 hour format
@@ -92,8 +98,34 @@ const fetchFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
 }
 
 
-// const replaceFormatTokens = (retStr: string, token: string, value: string): string => {
-// }
+const replaceFormatTokens = (retStr: string, format: string, token: string, formatTokens:any): {retStr: string, format: string} => {
+    while (format.indexOf(token) > -1) {
+        const foundPos = format.indexOf(token);
+        if (format.charAt(foundPos-1) === "_") { //it's a literal
+            retStr = retStr.slice(0, foundPos-1) +
+                retStr.slice(foundPos);
+            //erase the literal
+            format = format.slice(0, foundPos-1) + " " +
+                format.slice(foundPos + 1);
+        } else {
+            const valueStr = formatTokens[token];
+            retStr = retStr.slice(0, foundPos) +
+                    valueStr +
+                    retStr.slice(foundPos + token.length);
+
+            // erase find and adjust format to return strings new string
+            // This prevents finding matches in already replaced.
+            format = format.slice(0, foundPos) +
+                    Array(valueStr.length+1).join(" ") +
+                    format.slice(foundPos + token.length);
+        }
+    }
+
+    return {
+        retStr,
+        format
+    }
+}
 
 /**
  * This function returns the date in the format specified.
@@ -101,32 +133,14 @@ const fetchFormatTokens = (specifiedDate: Date):{[key:string]:string} => {
  * @param format 
  */
 export const DateFormat = (specifiedDate: Date, format: string): string  => {
-    const formatTokens: {[key:string]:string} = fetchFormatTokens(specifiedDate);
+    const formatTokens: {[key:string]:string} = Merge(fetchDateFormatTokens(specifiedDate), fetchTimeFormatTokens(specifiedDate));
   
     let retStr = format;
     // pareses format string and replaces it with time information.
     for(var token in formatTokens) {
-        while (format.indexOf(token) > -1) {
-            const foundPos = format.indexOf(token);
-            if (format.charAt(foundPos-1) === "_") { //it's a literal
-                retStr = retStr.slice(0, foundPos-1) +
-                    retStr.slice(foundPos);
-                //erase the literal
-                format = format.slice(0, foundPos-1) + " " +
-                    format.slice(foundPos + 1);
-            } else {
-                const valueStr = formatTokens[token];
-                retStr = retStr.slice(0, foundPos) +
-                        valueStr +
-                        retStr.slice(foundPos + token.length);
-
-                // erase find and adjust format to return strings new string
-                // This prevents finding matches in already replaced.
-                format = format.slice(0, foundPos) +
-                        Array(valueStr.length+1).join(" ") +
-                        format.slice(foundPos + token.length);
-            }
-        }
+        const results = replaceFormatTokens(retStr, format, token, formatTokens);
+        retStr = results.retStr;
+        format = results.format;
     }
 
     return retStr;
