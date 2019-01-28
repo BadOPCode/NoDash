@@ -5,8 +5,6 @@
  */
 "use strict";
 
-import { defaultCipherList } from "constants";
-
 export interface IMergeBehavior {
     [key:string]:(originalObject:any, newObject:any) => any;
 }
@@ -17,11 +15,26 @@ const handleDefinedBehavior = (originalObject:any, newObject:any, behavior: IMer
 
     if (behavior[`${originalTypeName}To${newTypeName}`]) {
         return behavior[`${originalTypeName}To${newTypeName}`](originalObject, newObject);
-    }
+}
 
     if (behavior[originalTypeName] !== undefined) {
         return behavior[originalTypeName](originalObject, newObject);
     }
+}
+
+const processBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
+    // Property in destination object set; update its value.
+    if (typeof(newObject) === "object") {
+        originalObject = Merge(originalObject, newObject, behavior);
+    } else {
+        if (behavior && originalObject) { // if original isn't there than lets just set it
+            originalObject = handleDefinedBehavior(originalObject, newObject, behavior);
+        } else {
+            originalObject = newObject;
+        }
+    }
+
+    return originalObject
 }
 
 const  handleDefaultBehavior = (originalObject:any, newObject:any, behavior?: IMergeBehavior) => {
@@ -33,16 +46,7 @@ const  handleDefaultBehavior = (originalObject:any, newObject:any, behavior?: IM
     const newTypeName = newObject.constructor.name;
     if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
         for (const p in newObject) {
-            // Property in destination object set; update its value.
-            if (typeof(newObject[p]) === "object") {
-                originalObject[p] = Merge(originalObject[p], newObject[p], behavior);
-            } else {
-                if (behavior && originalObject[p]) { // if original isn't there than lets just set it
-                    originalObject[p] = handleDefinedBehavior(originalObject[p], newObject[p], behavior);
-                } else {
-                    originalObject[p] = newObject[p];
-                }
-            }
+            originalObject[p] = processBehavior(originalObject[p], newObject[p], behavior);
         }
         return originalObject;
     }

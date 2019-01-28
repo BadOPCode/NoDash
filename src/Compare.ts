@@ -47,8 +47,7 @@ const matchObjects = (leftObject:any, rightObject:any, options?:ICompareOptions)
         return false;
     }
     for (const p in leftObject) {
-        if (leftObject.hasOwnProperty(p) && 
-            Compare(leftObject[p], rightObject[p]) === false) {
+        if (Compare(leftObject[p], rightObject[p]) === false) {
                 return false;
         }
     }
