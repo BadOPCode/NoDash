@@ -5,12 +5,12 @@
  */
 "use strict";
 
+import { TestRunner, TestSet } from "alsatian";
 import { TapBark } from "tap-bark";
-import { TestSet, TestRunner } from "alsatian";
 
 (async () => {
     const testSet = TestSet.create();
-    testSet.addTestsFromFiles('../src/**/*.test.ts');
+    testSet.addTestsFromFiles("../src/**/*.test.ts");
 
     const testRunner = new TestRunner();
 
@@ -19,7 +19,7 @@ import { TestSet, TestRunner } from "alsatian";
         .pipe(process.stdout);
 
     await testRunner.run(testSet);
-})().catch(e => {
+})().catch((e) => {
     console.error(e);
     process.exit(1);
 });
