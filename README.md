@@ -55,7 +55,7 @@ To import specifically this function use the following code:
 import { Compare } from "ts-nodash";
 
 //Node JS
-var Compare = require("ts-node").Compare;
+var Compare = require("ts-nodash").Compare;
 ```
 
 **Syntax**
@@ -104,7 +104,7 @@ To import specifically this function use the following code:
 import { DateFormat } from "ts-nodash";
 
 //Node JS
-var DateFormat = require("ts-node").DateFormat;
+var DateFormat = require("ts-nodash").DateFormat;
 ```
 
 **Syntax**
@@ -172,7 +172,7 @@ To import specifically this function use the following code:
 import { Decision } from "ts-nodash";
 
 //Node JS
-var Decision = require("ts-node").Decision;
+var Decision = require("ts-nodash").Decision;
 ```
 
 
@@ -236,7 +236,7 @@ To import specifically this function use the following code:
 import { FetchContext } from "ts-nodash";
 
 //Node JS
-var FetchContext = require("ts-node").FetchContext;
+var FetchContext = require("ts-nodash").FetchContext;
 ```
 
 **Syntax**
@@ -273,7 +273,7 @@ To import specifically this function use the following code:
 import { Merge } from "ts-nodash";
 
 //Node JS
-var Merge = require("ts-node").Merge;
+var Merge = require("ts-nodash").Merge;
 ```
 
 **Syntax**
@@ -318,7 +318,7 @@ To import specifically this function use the following code:
 import { PruneContext } from "ts-nodash";
 
 //Node JS
-var PruneContext = require("ts-node").PruneContext;
+var PruneContext = require("ts-nodash").PruneContext;
 ```
 
 **Syntax**
@@ -354,7 +354,7 @@ To import specifically this function use the following code:
 import { PutContext } from "ts-nodash";
 
 //Node JS
-var PutContext = require("ts-node").PutContext;
+var PutContext = require("ts-nodash").PutContext;
 ```
 
 **Syntax**
