@@ -15,7 +15,7 @@
   "license": "MIT",
   "dependencies": {
     "alsatian": "2.3.0",
-    "nyc": "^13.3.0",
+    "nyc": "^14.0.0",
     "shelljs": "^0.8.3",
     "tap-bark": "^1.0.0",
     "ts-node": "^8.0.2",
