@@ -18,7 +18,7 @@
     "typescript": "^3.5.3"
   },
   "devDependencies": {
-    "alsatian": "2.3.0",
+    "alsatian": "3.0.0",
     "nyc": "^14.1.1",
     "tap-bark": "^1.0.0",
     "ts-node": "^8.3.0"
