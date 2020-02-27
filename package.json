@@ -1,44 +1,26 @@
 {
   "name": "ts-nodash",
-  "version": "1.1.6",
+  "version": "1.2.0",
   "description": "Provides object manipulation tools.",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "node scripts/test",
-    "tests-with-coverage": "nyc --reporter=lcov --reporter=html alsatian \"./src/**/*.test.ts\" && nyc report",
-    "clean": "node scripts/clean",
-    "build": "node scripts/build",
+    "build": "tsc",
+    "clean": "rm -r lib coverage .nyc_output dist",
+    "lint": "tslint -p .",
     "postinstall": "npm run build",
-    "prepublish": "npm run build"
+    "test": "alsatian \"__tests__/**/*.test.ts\" --tap | tap-bark",
+    "test:coverage": "nyc --reporter=lcov --reporter=html npm run test && nyc report"
   },
   "author": "Shawn Rapp (BadOPCode)",
   "license": "MIT",
   "dependencies": {
-    "shelljs": "^0.8.3",
-    "typescript": "^3.5.3"
+    "typescript": "^3.8.2"
   },
   "devDependencies": {
-    "alsatian": "3.1.0",
+    "alsatian": "^3.2.1",
     "nyc": "^15.0.0",
-    "tap-bark": "^2.0.0",
-    "ts-node": "^8.3.0"
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.ts"
-    ],
-    "extension": [
-      ".ts"
-    ],
-    "require": [
-      "ts-node/register"
-    ],
-    "reporter": [
-      "text-summary",
-      "html"
-    ],
-    "sourceMap": true,
-    "instrument": true
+    "tap-bark": "^2.3.1",
+    "tslint": "^6.0.0"
   },
   "repository": {
     "type": "git",

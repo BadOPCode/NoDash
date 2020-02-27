@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import Merge from "./Merge";
+import Merge from "../src/Merge";
 
 @TestFixture("Merge Function")
 export class FixtureMerge {

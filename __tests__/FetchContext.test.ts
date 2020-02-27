@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import FetchContext from "./FetchContext";
+import FetchContext from "../src/FetchContext";
 
 @TestFixture("FetchContext Function")
 export class FixtureFetchContext {

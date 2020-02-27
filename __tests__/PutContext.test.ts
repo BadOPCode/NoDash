@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import PutContext from "./PutContext";
+import PutContext from "../src/PutContext";
 
 @TestFixture("PutContext Function")
 export class FixturePutContext {
