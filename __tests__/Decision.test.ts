@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, SpyOn, Test, TestFixture } from "alsatian";
-import Decision, * as spyMod from "./Decision";
+import Decision, * as spyMod from "../src/Decision";
 
 @TestFixture("Decision Function")
 export class FixtureDecision {

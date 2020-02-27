@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import PruneContext from "./PruneContext";
+import PruneContext from "../src/PruneContext";
 
 @TestFixture("PruneContext")
 export class FixturePruneContext {

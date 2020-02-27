@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import DateFormat from "./DateFormat";
+import DateFormat from "../src/DateFormat";
 
 @TestFixture("DateFormat Function")
 export class FixtureDateFormat {

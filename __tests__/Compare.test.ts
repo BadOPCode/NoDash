@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import Compare from "./Compare";
+import Compare from "../src/Compare";
 
 @TestFixture("Compare Function")
 export class FixtureCompare {

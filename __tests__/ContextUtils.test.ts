@@ -6,7 +6,7 @@
 "use strict";
 
 import { Expect, Test, TestFixture } from "alsatian";
-import * as utils from "./ContextUtils";
+import * as utils from "../src/ContextUtils";
 
 @TestFixture("ContextUtils Module")
 export class FixtureContextUtils {
