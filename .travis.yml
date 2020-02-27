@@ -27,5 +27,5 @@ deploy:
   api_key: $NPM_TOKEN
   on:
     tags: true
-    repo: BadOPCode/log-skidder
+    repo: BadOPCode/NoDash
   
