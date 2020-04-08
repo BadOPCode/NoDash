@@ -66,8 +66,8 @@ const fetchDateFormatTokens = (specifiedDate: Date): {[key: string]: string} => 
         YY: specifiedDate.getFullYear().toString().slice(2, 4),
         MMMM: FULL_MONTHS[specifiedDate.getMonth()], // full month name
         MMM: ABREVIATED_MONTHS[specifiedDate.getMonth()], // abreviated month Jan, Feb, etc.
-        MM: ("00" + specifiedDate.getMonth() + 1).slice(-2), // two digit (pad with 0)
-        M: "" + specifiedDate.getMonth() + 1, // month 1-12
+        MM: ("00" + (specifiedDate.getMonth() + 1)).slice(-2), // two digit (pad with 0)
+        M: "" + (specifiedDate.getMonth() + 1), // month 1-12
         Q: "" + Math.ceil((specifiedDate.getMonth() + 1) / 3), // return quarter
         DDDD: FULL_DOW[specifiedDate.getDay()], // full day of the week
         DDD: ABREVIATED_DOW[specifiedDate.getDay()], // three letter day of the week
