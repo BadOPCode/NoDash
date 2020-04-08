@@ -14,13 +14,13 @@
   "author": "Shawn Rapp (BadOPCode)",
   "license": "MIT",
   "dependencies": {
-    "typescript": "^3.8.2"
+    "typescript": "^3.8.3"
   },
   "devDependencies": {
     "alsatian": "^3.2.1",
-    "nyc": "^15.0.0",
+    "nyc": "^15.0.1",
     "tap-bark": "^2.3.1",
-    "tslint": "^6.0.0"
+    "tslint": "^6.1.1"
   },
   "repository": {
     "type": "git",
