@@ -4,10 +4,9 @@ Module that provides functions for manipulating objects.
 
 
 [![Build Status](https://travis-ci.com/BadOPCode/NoDash.svg?branch=master)](https://travis-ci.com/BadOPCode/NoDash) 
-[![Greenkeeper badge](https://badges.greenkeeper.io/BadOPCode/NoDash.svg)](https://greenkeeper.io/)
 [![Maintainability](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/maintainability)](https://codeclimate.com/github/BadOPCode/NoDash/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/test_coverage)](https://codeclimate.com/github/BadOPCode/NoDash/test_coverage)
-
+[![Known Vulnerabilities](https://snyk.io/test/github/BadOPCode/NoDash/badge.svg)](https://snyk.io/test/github/BadOPCode/NoDash)
 
 
 ## Description
