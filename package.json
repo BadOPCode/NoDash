@@ -14,7 +14,7 @@
   "author": "Shawn Rapp (BadOPCode)",
   "license": "MIT",
   "dependencies": {
-    "typescript": "^3.8.3"
+    "typescript": "^3.9.3"
   },
   "devDependencies": {
     "alsatian": "^3.2.1",
