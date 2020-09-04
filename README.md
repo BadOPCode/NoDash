@@ -375,8 +375,8 @@ const testObj = {
     a: { b: { c: 42 }},
     d: 12
 }
-FetchContext(testObj, "d", "hello") // returns { a:{b:{c:42}}, d:"hello" }
-FetchContext(testObj, "a.b.c", 25) // returns  { a:{b:{c:25}}, d: 12 }
-FetchContext(testObject, "a.b", { e: 23 }) // returns  { a:{b:{e:23}}, d: 12 }
-FetchContext(testObject, "a.b.e", 23); // returns  { a:{b:{c:42, e:23}}, d: 12 }
+PutContext(testObj, "d", "hello") // returns { a:{b:{c:42}}, d:"hello" }
+PutContext(testObj, "a.b.c", 25) // returns  { a:{b:{c:25}}, d: 12 }
+PutContext(testObject, "a.b", { e: 23 }) // returns  { a:{b:{e:23}}, d: 12 }
+PutContext(testObject, "a.b.e", 23); // returns  { a:{b:{c:42, e:23}}, d: 12 }
 ```
