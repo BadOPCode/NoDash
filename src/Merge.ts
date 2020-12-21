@@ -47,12 +47,17 @@ const  handleDefaultBehavior = (originalObject: any, newObject: any, behavior?: 
     if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
         // tslint:disable:forin
         for (const p in newObject) {
+            if (isPrototypePolluted(p)) continue
             originalObject[p] = processBehavior(originalObject[p], newObject[p], behavior);
         }
         // tslint:enable:forin
         return originalObject;
     }
 };
+
+const isPrototypePolluted = (key: any) => {
+    return ['__proto__', 'constructor', 'prototype'].includes(key)
+}
 
 /**
  * Recursively merge two objects together.
@@ -72,7 +77,7 @@ export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBeha
             return definedBehaviorResults;
         }
     }
-
+    
     return handleDefaultBehavior(originalObject, newObject, behavior);
 };
 
