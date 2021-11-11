@@ -3,19 +3,19 @@
  * @author Shawn Rapp
  * @license MIT
  */
-"use strict";
+'use strict';
 
 export interface IMergeBehavior {
     [key: string]: (originalObject: any, newObject: any) => any;
 }
 
 const handleDefinedBehavior = (originalObject: any, newObject: any, behavior: IMergeBehavior) => {
-    const originalTypeName = originalObject ? originalObject.constructor.name : "Undefined";
-    const newTypeName = newObject ? newObject.constructor.name : "Undefined";
+    const originalTypeName = originalObject ? originalObject.constructor.name : 'Undefined';
+    const newTypeName = newObject ? newObject.constructor.name : 'Undefined';
 
     if (behavior[`${originalTypeName}To${newTypeName}`]) {
         return behavior[`${originalTypeName}To${newTypeName}`](originalObject, newObject);
-}
+    }
 
     if (behavior[originalTypeName] !== undefined) {
         return behavior[originalTypeName](originalObject, newObject);
@@ -24,7 +24,7 @@ const handleDefinedBehavior = (originalObject: any, newObject: any, behavior: IM
 
 const processBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
     // Property in destination object set; update its value.
-    if (typeof(newObject) === "object") {
+    if (typeof (newObject) === 'object') {
         originalObject = Merge(originalObject, newObject, behavior);
     } else {
         if (behavior && originalObject) { // if original isn't there than lets just set it
@@ -37,17 +37,17 @@ const processBehavior = (originalObject: any, newObject: any, behavior?: IMergeB
     return originalObject;
 };
 
-const  handleDefaultBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
-    if (typeof(originalObject) === "undefined") {
+const handleDefaultBehavior = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
+    if (typeof (originalObject) === 'undefined') {
         return newObject;
     }
 
     const originalTypeName = originalObject.constructor.name;
     const newTypeName = newObject.constructor.name;
-    if (originalTypeName === "Object" && newTypeName === "Object") { // built-in behavior
+    if (originalTypeName === 'Object' && newTypeName === 'Object') { // built-in behavior
         // tslint:disable:forin
         for (const p in newObject) {
-            if (isPrototypePolluted(p)) continue
+            if (isPrototypePolluted(p)) continue;
             originalObject[p] = processBehavior(originalObject[p], newObject[p], behavior);
         }
         // tslint:enable:forin
@@ -56,8 +56,8 @@ const  handleDefaultBehavior = (originalObject: any, newObject: any, behavior?: 
 };
 
 const isPrototypePolluted = (key: any) => {
-    return ['__proto__', 'constructor', 'prototype'].includes(key)
-}
+    return ['__proto__', 'constructor', 'prototype'].includes(key);
+};
 
 /**
  * Recursively merge two objects together.
@@ -67,7 +67,7 @@ const isPrototypePolluted = (key: any) => {
  * be overwritten by the values in this object.
  */
 export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBehavior) => {
-    if (typeof(newObject) === "undefined") {
+    if (typeof (newObject) === 'undefined') {
         return originalObject;
     }
 
@@ -77,7 +77,7 @@ export const Merge = (originalObject: any, newObject: any, behavior?: IMergeBeha
             return definedBehaviorResults;
         }
     }
-    
+
     return handleDefaultBehavior(originalObject, newObject, behavior);
 };
 

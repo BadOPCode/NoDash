@@ -3,15 +3,15 @@
  * @author Shawn Rapp
  * @license MIT
  */
-"use strict";
+'use strict';
 
 export interface ICompareOptions {
     arrayOrderDoesNotMatter?: boolean;
 }
 
 const checkTypesMatch = (leftObject: any, rightObject: any) => {
-    const leftType = typeof(leftObject);
-    const rightType = typeof(rightObject);
+    const leftType = typeof (leftObject);
+    const rightType = typeof (rightObject);
 
     if (leftType !== rightType) {
         return false;
@@ -48,7 +48,7 @@ const matchObjects = (leftObject: any, rightObject: any, options?: ICompareOptio
     }
     for (const p in leftObject) {
         if (Compare(leftObject[p], rightObject[p]) === false) {
-                return false;
+            return false;
         }
     }
 
