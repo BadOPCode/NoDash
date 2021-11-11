@@ -3,8 +3,7 @@
 Module that provides functions for manipulating objects.
 
 
-[![Build Status](https://travis-ci.com/BadOPCode/NoDash.svg?branch=master)](https://travis-ci.com/BadOPCode/NoDash) 
-[![Maintainability](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/maintainability)](https://codeclimate.com/github/BadOPCode/NoDash/maintainability)
+[![Build and Test](https://github.com/BadOPCode/NoDash/actions/workflows/build.yml/badge.svg)](https://github.com/BadOPCode/NoDash/actions/workflows/build.yml)[![Maintainability](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/maintainability)](https://codeclimate.com/github/BadOPCode/NoDash/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/6a17e02fd7282740f43c/test_coverage)](https://codeclimate.com/github/BadOPCode/NoDash/test_coverage)
 [![Known Vulnerabilities](https://snyk.io/test/github/BadOPCode/NoDash/badge.svg?targetFile=package.json)](https://snyk.io/test/github/BadOPCode/NoDash?targetFile=package.json)
 
