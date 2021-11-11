@@ -29,8 +29,3 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-    - name: tagging and publishing to npm
-      # You may pin to the exact commit or the version.
-      # uses: oeway/npm-publish-action@abe2f924d9188614e8ca117d27c19a3ce694343e
-      uses: oeway/npm-publish-action@1.1.3
-  
