@@ -3,9 +3,9 @@
  * @author Shawn Rapp
  * @license MIT
  */
-"use strict";
+'use strict';
 
-import * as utils from "./ContextUtils";
+import * as utils from './ContextUtils';
 
 /**
  * This function traces the specified object in searchObject using the dot
@@ -20,16 +20,16 @@ export const FetchContext = (searchObject: any, context: string): any => {
     let tracedObject = searchObject;
 
     // validate context exists in object
-    if (searchObject.hasOwnProperty(contextInfo.propertyName) === false) {
+    if (Object.prototype.hasOwnProperty.call(searchObject, contextInfo.propertyName) === false) {
         return undefined;
     }
 
-    if (contextInfo.nextContext !== "") {
+    if (contextInfo.nextContext !== '') {
         // not traced to the end of the context specifier
         // continue tracing
         tracedObject = FetchContext(
             searchObject[contextInfo.propertyName],
-            contextInfo.nextContext,
+            contextInfo.nextContext
         );
     } else {
         // we made it to the end

@@ -3,7 +3,7 @@
  * @author Shawn Rapp
  * @license MIT
  */
-"use strict";
+'use strict';
 
 export type TDecision = string | number | undefined;
 
@@ -16,15 +16,15 @@ export const defaultUnknownDecision = (decision: any) => {
 };
 
 const processOption = (decisionTree: IDecisionTree, decision: TDecision, params?: any) => {
-    return (decisionTree[`${decision}`] instanceof Function) ?
-        decisionTree[`${decision}`](params) :
-        decisionTree[`${decision}`];
+    return (decisionTree[`${decision}`] instanceof Function)
+        ? decisionTree[`${decision}`](params)
+        : decisionTree[`${decision}`];
 };
 
 const processDefaultOption = (decisionTree: IDecisionTree, decision: TDecision, params?: any) => {
-    return (decisionTree.default instanceof Function) ?
-        decisionTree.default(`${decision}`, params) :
-        decisionTree.default;
+    return (decisionTree.default instanceof Function)
+        ? decisionTree.default(`${decision}`, params)
+        : decisionTree.default;
 };
 
 const runDecision = (decisionTree: IDecisionTree, decision: any, params?: any) => {
@@ -43,7 +43,7 @@ const runDecision = (decisionTree: IDecisionTree, decision: any, params?: any) =
 export const Decision = (decisionTree: IDecisionTree) => {
     return (decision?: any, params?: any) => {
         if (!decision) { // blank decision
-            return runDecision(decisionTree, "default");
+            return runDecision(decisionTree, 'default');
         }
         return runDecision(decisionTree, decision, params);
     };
