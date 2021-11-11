@@ -34,4 +34,4 @@ jobs:
       # uses: aktions/codeclimate-test-reporter@7634aa9ac7883182f583f15ff7b6ff519939dd0a
       uses: aktions/codeclimate-test-reporter@v1.2.0
       with:
-        codeclimate-test-reporter-id: ${{ pipeline.CC_TEST_REPORTER_ID }}
+        codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
