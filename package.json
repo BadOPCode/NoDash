@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "clean": "rm -r lib coverage .nyc_output dist",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint --fix src/**/*.ts",
+    "lint": "eslint src/**/*.ts __tests__/src/**/*.ts",
+    "lint:fix": "eslint --fix src/**/*.ts __tests__/src/**/*.ts",
     "postinstall": "npm run build",
     "test": "alsatian \"__tests__/**/*.test.ts\" --tap | tap-bark",
     "test:coverage": "nyc --reporter=lcov --reporter=html npm run test && nyc report"
