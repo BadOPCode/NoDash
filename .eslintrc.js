@@ -1,15 +1,16 @@
 module.exports = {
     env: {
         browser: true,
-        // es2021: true,
+        // "es2021": true, // option caused Code Climate to break LOL!
         node: true,
     },
     extends: [
-        "standard",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
     ],
     parser: "@typescript-eslint/parser",
     parserOptions: {
-        ecmaVersion: 13,
+        ecmaVersion: "latest",
         sourceType: "module",
     },
     plugins: [
@@ -28,5 +29,6 @@ module.exports = {
         "comma-dangle": ["error", "always-multiline"],
         "no-extra-boolean-cast": ["off"],
         "linebreak-style": ["error", "unix"],
+        "@typescript-eslint/no-explicit-any": ["off"],
     },
 };

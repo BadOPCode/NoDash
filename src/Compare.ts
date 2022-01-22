@@ -34,7 +34,7 @@ const matchArrays = (leftObject: JsonArray, rightObject: JsonArray, options?: IC
     return true;
 };
 
-const matchObjects = (leftObject: JsonObject, rightObject: JsonObject, options?: ICompareOptions): boolean => {
+const matchObjects = (leftObject: JsonObject, rightObject: JsonObject): boolean => {
     if (Compare(Object.keys(leftObject), Object.keys(rightObject)) === false) {
         return false;
     }
@@ -65,7 +65,7 @@ export const Compare = (leftObject: JsonProperty, rightObject: JsonProperty, opt
     } else if (Array.isArray(leftObject)) {
         retValue = matchArrays(leftObject, (rightObject as JsonArray), options);
     } else if (leftObject?.constructor === Object) {
-        retValue = matchObjects((leftObject as JsonObject), (rightObject as JsonObject), options);
+        retValue = matchObjects((leftObject as JsonObject), (rightObject as JsonObject));
     }
 
     return retValue;
