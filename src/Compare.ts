@@ -57,21 +57,18 @@ export const Compare = (leftObject: JsonProperty, rightObject: JsonProperty, opt
         return false;
     }
 
+    let retValue = leftObject === rightObject;
     if (leftObject === null) {
         // already compared left and right types match.
         // null only has a value of null
-        return true;
+        retValue = true;
+    } else if (Array.isArray(leftObject)) {
+        retValue = matchArrays(leftObject, (rightObject as JsonArray), options);
+    } else if (leftObject?.constructor === Object) {
+        retValue = matchObjects((leftObject as JsonObject), (rightObject as JsonObject), options);
     }
 
-    if (Array.isArray(leftObject)) {
-        return matchArrays(leftObject, (rightObject as JsonArray), options);
-    }
-
-    if (leftObject.constructor === Object) {
-        return matchObjects((leftObject as JsonObject), (rightObject as JsonObject), options);
-    }
-
-    return leftObject === rightObject;
+    return retValue;
 };
 
 export default Compare;

@@ -53,23 +53,17 @@ export const Contains = (baseObject: JsonProperty, comparedObject: JsonProperty)
         return false;
     }
 
-    if (comparedObject === null) {
-        return true;
+    let retValue = baseObject === comparedObject;
+
+    if (comparedObject?.constructor === String) {
+        retValue = (baseObject as string).indexOf(comparedObject) > -1;
+    } else if (Array.isArray(comparedObject)) {
+        retValue = matchArrays((baseObject as JsonArray), (comparedObject as JsonArray));
+    } else if (comparedObject?.constructor === Object) {
+        retValue = matchObjects((baseObject as JsonObject), (comparedObject as JsonObject));
     }
 
-    if (comparedObject.constructor === String) {
-        return (baseObject as string).indexOf(comparedObject) > -1;
-    }
-
-    if (Array.isArray(comparedObject)) {
-        return matchArrays((baseObject as JsonArray), (comparedObject as JsonArray));
-    }
-
-    if (comparedObject.constructor === Object) {
-        return matchObjects((baseObject as JsonObject), (comparedObject as JsonObject));
-    }
-
-    return baseObject === comparedObject;
+    return retValue;
 };
 
 export default Contains;
