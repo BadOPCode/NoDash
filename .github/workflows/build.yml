@@ -29,9 +29,9 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm run test:coverage
-    - name: Code Climate Test Reporter
-      # You may pin to the exact commit or the version.
-      # uses: aktions/codeclimate-test-reporter@7634aa9ac7883182f583f15ff7b6ff519939dd0a
-      uses: aktions/codeclimate-test-reporter@v1.2.0
-      with:
-        codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+    - name: Code Climate coverage
+       uses: aktions/codeclimate-test-reporter@v1
+       if: ${{ github.event_name != 'pull_request' }}
+       with:
+         codeclimate-test-reporter-id: ${{ secrets.CC_TEST_REPORTER_ID }}
+         command: after-build --coverage-input-type lcov
