@@ -90,6 +90,57 @@ compare([1,2,3],[3,2,1]]) //returns false because by default array order does ma
 ```
 
 
+### Contains
+
+The Contains function will return true if if every value in the compared parameter is contained in the base object.
+
+To import the fuction specifically use the following code:
+
+```typescript
+//ES6
+import { Contains } from "ts-nodash";
+
+//Node JS
+var Contains = require("ts-nodash").Contains;
+```
+
+**Syntax**
+```
+Contains(base, compare)
+```
+> Base (required):  Any JSON type to be searched.
+
+> compare (required): Any JSON type that contains the values that should be in base.
+
+> returns: true if all the values in compare are found in base.  False if any property is not found.  With string types it will return true if the string specified in compare is somewhere within the base string.
+
+**Examples**
+```typescript
+Contains("hello world", "hello"); // returns true
+Contains("hello world", "fox"); // returns false
+Contains({
+  a: [
+    {
+      b: {
+        c: 42
+      },
+      d: false
+    },
+    {
+      e: "hi"
+    }
+  ]
+}, {
+  a: [
+    {
+      b: {
+        c: 42
+      }
+    }
+  ]  
+});  // returns true
+```
+
 
 ### DateFormat
 
