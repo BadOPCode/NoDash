@@ -117,4 +117,40 @@ export class FixtureMerge {
             c: 45,
         });
     }
+
+    @Test("it should be able to merge null values")
+    public testMergeNulls() {
+        const mergedObjects = Merge({
+            a: 1,
+        }, {
+            b: null,
+        });
+        Expect(mergedObjects).toEqual({
+            a: 1,
+            b: null,
+        });
+    }
+
+    @Test("it should be able to convert nulls")
+    public testMergeConvertNull() {
+        const mergedObjects = Merge({
+            a: 1,
+            c: null,
+        }, {
+            b: null,
+            c: "hi",
+        }, {
+            UndefinedToNull: () => {
+                return 0;
+            },
+            NullToString: () => {
+                return false;
+            },
+        });
+        Expect(mergedObjects).toEqual({
+            a: 1,
+            b: 0,
+            c: false,
+        });
+    }
 }

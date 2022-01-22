@@ -3,24 +3,16 @@
  * @author Shawn Rapp
  * @license MIT
  */
-'use strict';
+"use strict";
+
+import { JsonArray, JsonObject, JsonProperty } from "./Types";
+import { CheckTypesMatch } from "./Utils";
 
 export interface ICompareOptions {
     arrayOrderDoesNotMatter?: boolean;
 }
 
-const checkTypesMatch = (leftObject: any, rightObject: any) => {
-    const leftType = typeof (leftObject);
-    const rightType = typeof (rightObject);
-
-    if (leftType !== rightType) {
-        return false;
-    }
-
-    return true;
-};
-
-const matchArrays = (leftObject: any[], rightObject: any[], options?: ICompareOptions): boolean => {
+const matchArrays = (leftObject: JsonArray, rightObject: JsonArray, options?: ICompareOptions): boolean => {
     let lArray = leftObject;
     let rArray = rightObject;
 
@@ -42,7 +34,7 @@ const matchArrays = (leftObject: any[], rightObject: any[], options?: ICompareOp
     return true;
 };
 
-const matchObjects = (leftObject: any, rightObject: any, options?: ICompareOptions): boolean => {
+const matchObjects = (leftObject: JsonObject, rightObject: JsonObject, options?: ICompareOptions): boolean => {
     if (Compare(Object.keys(leftObject), Object.keys(rightObject)) === false) {
         return false;
     }
@@ -60,20 +52,23 @@ const matchObjects = (leftObject: any, rightObject: any, options?: ICompareOptio
  * @param leftObject First object to be compared to.
  * @param rightObject Second object that is compared to the first.
  */
-export const Compare = (leftObject: any, rightObject: any, options?: ICompareOptions) => {
-    if (!checkTypesMatch(leftObject, rightObject)) {
+export const Compare = (leftObject: JsonProperty, rightObject: JsonProperty, options?: ICompareOptions) => {
+    if (!CheckTypesMatch(leftObject, rightObject)) {
         return false;
     }
 
-    if (leftObject.constructor === Array) {
-        return matchArrays(leftObject, rightObject, options);
+    let retValue = leftObject === rightObject;
+    if (leftObject === null) {
+        // already compared left and right types match.
+        // null only has a value of null
+        retValue = true;
+    } else if (Array.isArray(leftObject)) {
+        retValue = matchArrays(leftObject, (rightObject as JsonArray), options);
+    } else if (leftObject?.constructor === Object) {
+        retValue = matchObjects((leftObject as JsonObject), (rightObject as JsonObject), options);
     }
 
-    if (leftObject.constructor === Object) {
-        return matchObjects(leftObject, rightObject, options);
-    }
-
-    return leftObject === rightObject;
+    return retValue;
 };
 
 export default Compare;

@@ -3,7 +3,7 @@
  * @author Shawn Rapp
  * @license MIT
  */
-'use strict';
+"use strict";
 
 export type TDecision = string | number | undefined;
 
@@ -12,7 +12,7 @@ export interface IDecisionTree {
 }
 
 export const defaultUnknownDecision = (decision: any) => {
-    console.error('Unknown "' + decision + '" command.');
+    console.error("Unknown \"" + decision + "\" command.");
 };
 
 const processOption = (decisionTree: IDecisionTree, decision: TDecision, params?: any) => {
@@ -43,7 +43,7 @@ const runDecision = (decisionTree: IDecisionTree, decision: any, params?: any) =
 export const Decision = (decisionTree: IDecisionTree) => {
     return (decision?: any, params?: any) => {
         if (!decision) { // blank decision
-            return runDecision(decisionTree, 'default');
+            return runDecision(decisionTree, "default");
         }
         return runDecision(decisionTree, decision, params);
     };
