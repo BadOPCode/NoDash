@@ -3,7 +3,7 @@
  * @author Shawn Rapp
  * @license MIT
  */
-'use strict';
+"use strict";
 
 /**
  * This looks at the current context dot delimited string and returns a split between
@@ -14,13 +14,13 @@
 export const getNextContext = (currentContext: string): { propertyName: string, nextContext: string } => {
     if (!currentContext) {
         return {
-            nextContext: '',
-            propertyName: ''
+            nextContext: "",
+            propertyName: "",
         };
     }
-    const delimiterPosition = currentContext.indexOf('.');
+    const delimiterPosition = currentContext.indexOf(".");
     let propertyName = currentContext;
-    let nextContext = '';
+    let nextContext = "";
 
     if (delimiterPosition > -1) {
         // context still has a delimiter
@@ -32,6 +32,6 @@ export const getNextContext = (currentContext: string): { propertyName: string, 
 
     return {
         nextContext,
-        propertyName
+        propertyName,
     };
 };

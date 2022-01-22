@@ -3,15 +3,15 @@
  * @author Shawn Rapp
  * @license MIT
  */
-'use strict';
+"use strict";
 
-import { Compare } from './Compare';
-import { DateFormat } from './DateFormat';
-import { Decision } from './Decision';
-import { FetchContext } from './FetchContext';
-import { Merge } from './Merge';
-import { PruneContext } from './PruneContext';
-import { PutContext } from './PutContext';
+import { Compare } from "./Compare";
+import { DateFormat } from "./DateFormat";
+import { Decision } from "./Decision";
+import { FetchContext } from "./FetchContext";
+import { Merge } from "./Merge";
+import { PruneContext } from "./PruneContext";
+import { PutContext } from "./PutContext";
 
 export {
     Compare,
@@ -20,7 +20,7 @@ export {
     FetchContext,
     Merge,
     PruneContext,
-    PutContext
+    PutContext,
 };
 
 export default {
@@ -30,5 +30,5 @@ export default {
     FetchContext,
     Merge,
     PruneContext,
-    PutContext
+    PutContext,
 };

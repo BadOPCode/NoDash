@@ -10,7 +10,6 @@ import Compare from "../src/Compare";
 
 @TestFixture("Compare Function")
 export class FixtureCompare {
-
     @Test("Fail if types are different.")
     public testFailDifferent() {
         const result = Compare("123", 123);
@@ -120,7 +119,7 @@ export class FixtureCompare {
             2,
             1,
         ];
-        const results = Compare(leftArray, rightArray, {arrayOrderDoesNotMatter: true});
+        const results = Compare(leftArray, rightArray, { arrayOrderDoesNotMatter: true });
         Expect(results).toBe(true);
     }
 
@@ -253,5 +252,11 @@ export class FixtureCompare {
         ];
         results = Compare(leftArray, rightArray);
         Expect(results).toBe(false);
+    }
+
+    @Test("it should pass when comparing two nulls")
+    public testPassNull() {
+        const results = Compare(null, null);
+        Expect(results).toBe(true);
     }
 }

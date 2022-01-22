@@ -3,9 +3,9 @@
  * @author Shawn Rapp
  * @license MIT
  */
-'use strict';
+"use strict";
 
-import * as utils from './ContextUtils';
+import * as utils from "./ContextUtils";
 
 /**
  * This function will follow the context path of a object using the dot
@@ -25,13 +25,13 @@ export const PutContext = (searchObject: any, context: string, data: any): any =
         searchObject[contextInfo.propertyName] = {};
     }
 
-    if (contextInfo.nextContext !== '') {
+    if (contextInfo.nextContext !== "") {
         // not traced to the end of the context specifier
         // continue tracing
         tracedObject[contextInfo.propertyName] = PutContext(
             searchObject[contextInfo.propertyName],
             contextInfo.nextContext,
-            data
+            data,
         );
     } else {
         // we made it to the end
