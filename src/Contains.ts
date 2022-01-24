@@ -48,7 +48,7 @@ const matchObjects = (baseObject: JsonObject, comparedObject: JsonObject): boole
  * This function is similar to Compare only it ensures all of the comparedObject is contained in the baseObject
  * and ignores extra data that is in baseObject.
  */
-export const Contains = (baseObject: JsonProperty, comparedObject: JsonProperty): boolean => {
+export const Contains = (baseObject: any, comparedObject: any): boolean => {
     if (!CheckTypesMatch(baseObject, comparedObject)) {
         return false;
     }
@@ -56,7 +56,7 @@ export const Contains = (baseObject: JsonProperty, comparedObject: JsonProperty)
     let retValue = baseObject === comparedObject;
 
     if (comparedObject?.constructor === String) {
-        retValue = (baseObject as string).indexOf(comparedObject) > -1;
+        retValue = (baseObject as string).indexOf((comparedObject as string)) > -1;
     } else if (Array.isArray(comparedObject)) {
         retValue = matchArrays((baseObject as JsonArray), (comparedObject as JsonArray));
     } else if (comparedObject?.constructor === Object) {
