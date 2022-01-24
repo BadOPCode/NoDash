@@ -93,6 +93,7 @@ compare([1,2,3],[3,2,1]]) //returns false because by default array order does ma
 ### Contains
 
 The Contains function will return true if if every value in the compared parameter is contained in the base object.
+**This function should only be used with data objects.**
 
 To import the fuction specifically use the following code:
 
