@@ -14,7 +14,7 @@ import { Merge } from "./Merge";
 import { PruneContext } from "./PruneContext";
 import { PutContext } from "./PutContext";
 
-export {
+const exportList = {
     Compare,
     Contains,
     DateFormat,
@@ -25,13 +25,4 @@ export {
     PutContext,
 };
 
-export default {
-    Compare,
-    Contains,
-    DateFormat,
-    Decision,
-    FetchContext,
-    Merge,
-    PruneContext,
-    PutContext,
-};
+export default exportList;

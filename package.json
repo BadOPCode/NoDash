@@ -1,8 +1,9 @@
 {
   "name": "ts-nodash",
-  "version": "1.3.3",
+  "version": "1.3.7",
   "description": "Provides object manipulation tools.",
   "main": "lib/index.js",
+  "module": "src/index.ts",
   "scripts": {
     "build": "tsc",
     "clean": "rm -r lib coverage .nyc_output dist",
