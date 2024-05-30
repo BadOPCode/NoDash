@@ -14,6 +14,17 @@ import { Merge } from "./Merge";
 import { PruneContext } from "./PruneContext";
 import { PutContext } from "./PutContext";
 
+export {
+    Compare,
+    Contains,
+    DateFormat,
+    Decision,
+    FetchContext,
+    Merge,
+    PruneContext,
+    PutContext,
+};
+
 const exportList = {
     Compare,
     Contains,
