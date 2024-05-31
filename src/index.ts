@@ -25,7 +25,7 @@ export {
     PutContext,
 };
 
-const exportList = {
+const exportList:{[key:string]:any} = {
     Compare,
     Contains,
     DateFormat,
